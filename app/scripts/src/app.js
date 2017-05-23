@@ -1,11 +1,12 @@
 /*
     define the structure of messages and pass messages between and dom
 */
+import socket from './ws-client';
 
 // ES6 class (constructor sorthand syntax)
 class ChatApp {
     constructor() {
-        console.log('Hello ES6');
+        socket.init('ws://localhost:3001');
     }
 }
 
