@@ -7,6 +7,15 @@ import socket from './ws-client';
 class ChatApp {
     constructor() {
         socket.init('ws://localhost:3001');
+        // When connected, send pow!
+        socket.registerOpenHandler(() => {
+            let message = new ChatMessage({ message: 'pow!'});
+            socket.sendMessage(message.serialize());
+        });
+        // Forwarded message
+        socket.registerMessageHandler((data) => {
+            console.log(data);
+        });
     }
 }
 
@@ -31,9 +40,5 @@ class ChatMessage {
     }
 }
 
-// (old) New instance
-// new ChatApp();
-
-// In ES6 modules, you must explicitly export the pieces of your module you
-// want others to use
+// In ES6 modules, you must explicitly export the pieces 
 export default ChatApp;
