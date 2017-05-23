@@ -1,0 +1,20 @@
+{
+  "name": "websocket-chat-app",
+  "version": "1.0.0",
+  "description": "A chat app experiment consisting of a Node.js server and a JavaScript app running in the browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bajocode/WebsocketChatApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bajocode/WebsocketChatApp/issues"
+  },
+  "homepage": "https://github.com/Bajocode/WebsocketChatApp#readme"
+}
