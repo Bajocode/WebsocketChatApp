@@ -1,6 +1,7 @@
 var http = require('http'); // Handle HTTP requests
 var fs = require('fs'); // Read local files
 var extract = require('./extract'); // handling and transforming file paths
+var wss = require('./websocket-server'); // Let nodemon reload ws code too
 
 // Error handler
 var handleError = function(error, response) {
