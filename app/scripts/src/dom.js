@@ -7,6 +7,7 @@
 //  jQuery for DOM manipulation
 import $ from 'jquery';
 import md5 from 'crypto-js/md5'; // Import just the submodule
+import moment from 'moment';
 
 // Helper for generating hash identifier
 function createGravatarURL(username) {
@@ -73,7 +74,7 @@ export class ChatList {
         $message.append($('<span>', {
             'class': 'timestamp',
             'data-time': t,
-            text: (new Date(t)).getTime()
+            text: moment(t).fromNow()
         }));
         $message.append($('<span>', {
             'class': 'message-message',
@@ -92,5 +93,20 @@ export class ChatList {
 
         // Scrolls row into visible window area
         $messageRow.get(0).scrollIntoView();
+    }
+
+    // Call setInterval and set timestamp string
+    init() {
+        this.timer = setInterval(() => {
+            // Find all elements with data-time attribute
+            $('[data-time]').each((idx, element) => {
+                let $element = $(element);
+                // Create new date object with timestamp
+                let timestamp = new Date().setTime($element.attr('data-time'));
+                // Produce final timestamp string
+                let ago = moment(timestamp).fromNow();
+                $element.html(ago);
+            });
+        }, 1000); // Run every 1000 miliseconds
     }
 }

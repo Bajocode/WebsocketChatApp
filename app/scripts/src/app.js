@@ -41,6 +41,7 @@ class ChatApp {
                 let message = new ChatMessage({ message: text });
                 socket.sendMessage(message.serialize());
             });
+            this.chatList.init(); // Generate readable timestamp
         });
         // Forwarded message
         socket.registerMessageHandler((data) => {
