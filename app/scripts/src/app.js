@@ -10,14 +10,21 @@
     FLow: display new messages from server
 */
 import socket from './ws-client';
+import { UserStore } from './storage';
 import { ChatForm, ChatList, promptForUsername } from './dom'; // {named import}
 
 const FORM_SELECTOR = '[data-chat="chat-form"]';
 const INPUT_SELECTOR = '[data-chat="message-input"]';
 const LIST_SELECTOR = '[data-chat="message-list"]';
 
-let username = '';
-username = promptForUsername();
+// Check if username in session storage of browser
+let userStore = new UserStore('x-chatApp/u');
+let username = userStore.get();
+if (!username) {
+    username = promptForUsername();
+    userStore.set(username);
+}
+
 
 // ES6 class (constructor sorthand syntax)
 class ChatApp {
