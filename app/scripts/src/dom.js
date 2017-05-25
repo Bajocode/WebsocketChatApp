@@ -15,6 +15,12 @@ function createGravatarURL(username) {
     return `http://www.gravatar.com/avatar/${userHash.toString()}`;
 }
 
+// DOM interacts with UI, prompt user for username
+export function promptForUsername() {
+    let username = prompt('Enter your username');
+    return username.toLowerCase();
+}
+
 // Chatform constructor for accepting selctors (client sending out messages)
 export class ChatForm {
     constructor(formSelector, inputSelector) {
