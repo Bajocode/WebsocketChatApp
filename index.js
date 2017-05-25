@@ -20,7 +20,6 @@ var server = http.createServer(function(request, response) {
             handleError(error, response);
             return;
         } else {
-            response.setHeader('Content-Type', 'text/html');
             response.end(data);
         }
     });

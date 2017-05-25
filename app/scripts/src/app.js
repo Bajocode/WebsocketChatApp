@@ -9,7 +9,7 @@ class ChatApp {
         socket.init('ws://localhost:3001');
         // When connected, send pow!
         socket.registerOpenHandler(() => {
-            let message = new ChatMessage({ message: 'pow!'});
+            let message = new ChatMessage({ message: 'message!'});
             socket.sendMessage(message.serialize());
         });
         // Forwarded message
@@ -23,7 +23,7 @@ class ChatApp {
 class ChatMessage {
     constructor({
         message: m,
-        user: u = 'wonderwoman',
+        user: u = 'username',
         timestamp: t = (new Date()).getTime()
     }) {
         this.message = m;
@@ -40,5 +40,5 @@ class ChatMessage {
     }
 }
 
-// In ES6 modules, you must explicitly export the pieces 
+// In ES6 modules, you must explicitly export the pieces
 export default ChatApp;
