@@ -10,27 +10,32 @@
     FLow: display new messages from server
 */
 import socket from './ws-client';
-import { ChatForm } from './dom'; // {named import}
+import { ChatForm, ChatList } from './dom'; // {named import}
 
 const FORM_SELECTOR = '[data-chat="chat-form"]';
 const INPUT_SELECTOR = '[data-chat="message-input"]';
+const LIST_SELECTOR = '[data-chat="message-list"]';
 
 // ES6 class (constructor sorthand syntax)
 class ChatApp {
     constructor() {
+        // Properties
         this.chatForm = new ChatForm(FORM_SELECTOR, INPUT_SELECTOR);
+        this.chatList = new ChatList(LIST_SELECTOR, 'FabijanBajo')
 
         socket.init('ws://localhost:3001');
         // Open socket connection to server
         socket.registerOpenHandler(() => {
             // Initialize ChatForm instance with form submission callback
-            this.chatForm.init((data) => {
-                let message = ChatMessage(data);
+            this.chatForm.init((text) => {
+                let message = new ChatMessage({ message: text });
                 socket.sendMessage(message.serialize());
             });
         });
         // Forwarded message
         socket.registerMessageHandler((data) => {
+            let message = new ChatMessage(data);
+            this.chatList.drawMessage(message.serialize());
             console.log(data);
         });
     }
@@ -40,7 +45,7 @@ class ChatApp {
 class ChatMessage {
     constructor({
         message: m,
-        user: u = 'username',
+        user: u = 'FabijanBajo',
         timestamp: t = (new Date()).getTime()
     }) {
         this.message = m;

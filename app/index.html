@@ -1,14 +1,16 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <title>Chat App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/styles.css">
-  </head>
-  <body class="container chat-wrapper">
+</head>
+
+<body class="container chat-wrapper">
 
     <header class="chat-app-header">
-      <h1>Chat App</h1>
+        <h1>Chat App</h1>
     </header>
 
     <div class="panel panel-default chat-messages">
@@ -16,18 +18,20 @@
     </div>
 
     <section class="chat-input">
-      <form data-chat="chat-form" class="cb-container">
-        <div class="input-group">
-          <label for="js-message-input" class="sr-only">Message:</label>
-          <input type="text" class="form-control" data-chat="message-input" autofocus>
-          <span class="input-group-btn">
+        <form data-chat="chat-form" class="cb-container">
+            <div class="input-group">
+                <label for="js-message-input" class="sr-only">Message:</label>
+                <input type="text" class="form-control" data-chat="message-input" autofocus>
+                <span class="input-group-btn">
             <button class="btn btn-default" type="button">Go!</button>
           </span>
-        </div><!-- /input-group -->
-      </form>
+            </div>
+            <!-- /input-group -->
+        </form>
     </section>
 
     <script src="/scripts/dist/main.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" type="text/javascript" charset="utf-8"></script> -->
-  </body>
+</body>
+
 </html>
