@@ -6,6 +6,14 @@
 
 //  jQuery for DOM manipulation
 import $ from 'jquery';
+import md5 from 'crypto-js/md5'; // Import just the submodule
+
+// Helper for generating hash identifier
+function createGravatarURL(username) {
+    let userHash = md5(username);
+    // ES6 template strings feature (backticks)
+    return `http://www.gravatar.com/avatar/${userHash.toString()}`;
+}
 
 // Chatform constructor for accepting selctors (client sending out messages)
 export class ChatForm {
@@ -66,7 +74,13 @@ export class ChatList {
             text: m
         }));
 
+        let $img = $('<img>', {
+            src: createGravatarURL(u),
+            title: u
+        });
+
         // Append messageRow to list element
+        $messageRow.append($img);
         $messageRow.append($message);
         this.$list.append($messageRow);
 
