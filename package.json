@@ -2,11 +2,11 @@
   "name": "websocket-chat-app",
   "version": "1.0.0",
   "description": "A chat app experiment consisting of a Node.js server and a JavaScript app running in the browser",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
     "build": "browserify -d app/scripts/src/main.js -o app/scripts/dist/main.js",
     "watch": "watchify -v -d app/scripts/src/main.js -o app/scripts/dist/main.js"
   },

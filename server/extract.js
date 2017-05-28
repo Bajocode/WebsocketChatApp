@@ -9,7 +9,7 @@ var extractFilePath = function(url) {
     }
     console.log('Filename: ' + fileName);
 
-    return path.resolve(__dirname, 'app', fileName);
+    return path.resolve(__dirname, '../app', fileName);
 };
 
 // Make available to that other modules can import with require
