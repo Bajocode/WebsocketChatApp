@@ -10,22 +10,22 @@ var messages = [];
 
 // Callback for every conneciton event on ws server
 // Access client connection through socket object
-ws.on('connection', function(socket) {
+ws.on('connection', (socket) => {
     console.log('Client connection established');
 
     // Send old messages to newly connected client
-    messages.forEach(function(msg) {
+    messages.forEach((msg) => {
         socket.send(msg);
     });
 
     // Create echo server: repeat any msg sent to websocket server
-    socket.on('message', function(data) {
+    socket.on('message', (data) => {
         console.log('Message received: ' + data);
         // Add messages to history array
         messages.push(data);
 
         // Send new message form client to every client connected to socket
-        ws.clients.forEach(function(clientSocket) {
+        ws.clients.forEach((clientSocket) => {
             clientSocket.send(data)
         });
     });

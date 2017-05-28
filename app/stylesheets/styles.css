@@ -3,7 +3,9 @@ html, body {
 }
 
 body {
-    padding-bottom: 10px
+    padding-bottom: 10px;
+    background-color: #baf99d;
+
 }
 
 .chat-wrapper {
@@ -35,7 +37,7 @@ ul, ul.panel-body {
 .message-row img {
     padding-right: 1em;
     /* flex: auto; */
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .message-row p {
