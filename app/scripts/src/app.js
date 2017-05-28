@@ -25,7 +25,6 @@ if (!username) {
     userStore.set(username);
 }
 
-
 // ES6 class (constructor sorthand syntax)
 class ChatApp {
     constructor() {

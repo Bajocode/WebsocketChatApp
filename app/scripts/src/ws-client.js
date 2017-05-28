@@ -11,19 +11,19 @@ function init(url) {
 }
 
 // performing initial setup when the connection is first opened
-function registerOpenHandler(handlerFunction) {
+function registerOpenHandler(completion) {
     socket.onopen = () => {
         console.log('open');
-        handlerFunction();
+        completion();
     };
 }
 
 // forwarding incoming messages to their handlers
-function registerMessageHandler(handlerFunction) {
+function registerMessageHandler(completion) {
     socket.onmessage = (e) => {
         console.log('message', e.data);
         let data = JSON.parse(e.data);
-        handlerFunction(data);
+        completion(data);
     };
 }
 
