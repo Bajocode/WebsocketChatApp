@@ -60,9 +60,14 @@ export class ChatList {
             'class': 'message-row'
         });
 
+        let $bubble = $('<div>', {
+            'class': 'message-bubble'
+        });
+
         // If you are sender of message, extra styling
         if (this.username === u) {
-            $messageRow.addClass('me');
+            $messageRow.addClass('row-me');
+            $bubble.addClass('bubble-me');
         }
 
         // Construct DOM message elements
@@ -88,7 +93,8 @@ export class ChatList {
 
         // Append messageRow to list element
         $messageRow.append($img);
-        $messageRow.append($message);
+        $bubble.append($message);
+        $messageRow.append($bubble);
         this.$list.append($messageRow);
 
         // Scrolls row into visible window area
