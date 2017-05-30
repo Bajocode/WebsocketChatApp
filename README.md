@@ -6,7 +6,7 @@ A chat app experiment consisting of a Node.js server and a JavaScript app runnin
 ## Configuration
 1. Navigate to the project root directory
 2. run `$ npm install`
-3. run `$ npm run dev` to start the node server and other modules
+3. run `$ npm run dev` to start the node server and `$ npm run watch` for file updates
 4. Open a new browser page on http://localhost:3000/
 5. Enter an email address as your chat username
     * Ideally an email address bound to a [Gravatar](https://en.gravatar.com/) account
