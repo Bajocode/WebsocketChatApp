@@ -21,7 +21,6 @@ function registerOpenHandler(completion) {
 // forwarding incoming messages to their handlers
 function registerMessageHandler(completion) {
     socket.onmessage = (e) => {
-        console.log('message', e.data);
         let data = JSON.parse(e.data);
         completion(data);
     };

@@ -11,7 +11,7 @@
 */
 import socket from './ws-client';
 import { UserStore } from './storage';
-import { ChatForm, ChatList, promptForUsername } from './dom'; // {named import}
+import { ChatForm, ChatList, promptForUsername, promptForChatRoom } from './dom'; // {named import}
 
 const FORM_SELECTOR = '[data-chat="chat-form"]';
 const INPUT_SELECTOR = '[data-chat="message-input"]';
@@ -24,6 +24,11 @@ if (!username) {
     username = promptForUsername();
     userStore.set(username);
 }
+
+// Rooms
+let availableRooms = [];
+let chosenRoom;
+
 
 // ES6 class (constructor sorthand syntax)
 class ChatApp {
@@ -44,11 +49,21 @@ class ChatApp {
         });
         // Forwarded message
         socket.registerMessageHandler((data) => {
-            let message = new ChatMessage(data);
-            this.chatList.drawMessage(message.serialize());
-            console.log(data);
+            if (!chosenRoom) {
+                // Server message
+                configureRoom(data);
+            } else {
+                // User message
+                let message = new ChatMessage(data);
+                this.chatList.drawMessage(message.serialize());
+            }
         });
     }
+}
+function configureRoom(data) {
+    chosenRoom = promptForChatRoom(data);
+    let message = new ChatMessage({ message: 'initUserRoom', admin: true });
+    socket.sendMessage(message.serialize());
 }
 
 // Add username etc to message before sending to server
@@ -56,18 +71,25 @@ class ChatMessage {
     constructor({
         message: m,
         user: u = username,
-        timestamp: t = (new Date()).getTime()
+        timestamp: t = (new Date()).getTime(),
+        room: r = chosenRoom,
+        admin: a = false
     }) {
         this.message = m;
         this.user = u;
         this.timestamp = t;
+        this.room = r;
+        this.admin = a;
     }
+
     // represent the data as a plain JavaScript object for socket stream.
     serialize() {
         return { // JSON object
             user: this.user,
             message: this.message,
-            timestamp: this.timestamp
+            timestamp: this.timestamp,
+            room: this.room,
+            admin: this.admin
         };
     }
 }

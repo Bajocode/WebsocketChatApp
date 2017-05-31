@@ -22,6 +22,12 @@ export function promptForUsername() {
     return username.toLowerCase();
 }
 
+// Prompt for chat room
+export function promptForChatRoom(rooms) {
+    let chatroom = prompt('Choose a room: ' + rooms);
+    return chatroom;
+}
+
 // Chatform constructor for accepting selctors (client sending out messages)
 export class ChatForm {
     constructor(formSelector, inputSelector) {
