@@ -62,9 +62,9 @@ class ChatApp {
 }
 // Get selected room from DOM and send response to server
 function configureRoom(data) {
-    // chosenRoom = promptForChatRoom(data);
-    // let message = new ChatMessage({ message: 'initUserRoom', admin: true });
-    //socket.sendMessage(message.serialize());
+    chosenRoom = promptForChatRoom(data);
+    let message = new ChatMessage({ message: 'initUserRoom', admin: true });
+    socket.sendMessage(message.serialize());
 }
 
 // Add username etc to message before sending to server

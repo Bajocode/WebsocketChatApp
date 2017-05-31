@@ -14,17 +14,8 @@ body {
 
 }
 
-.rooms-chatlist {
-    display: flex;
-    flex-direction: row;
-}
-
-.chat-rooms {
-    flex: 1;
-}
-
 .chat-messages {
-    flex: 2;
+    flex: 3;
     overflow-y: auto;
 }
 
