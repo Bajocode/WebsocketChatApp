@@ -11,10 +11,20 @@ body {
     display: flex;
     height: 100%;
     flex-direction: column;
+
+}
+
+.rooms-chatlist {
+    display: flex;
+    flex-direction: row;
+}
+
+.chat-rooms {
+    flex: 1;
 }
 
 .chat-messages {
-    flex: 3;
+    flex: 2;
     overflow-y: auto;
 }
 

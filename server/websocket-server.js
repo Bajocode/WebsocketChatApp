@@ -6,7 +6,7 @@ var port = 3001;
 var ws = new WebSocketServer({
     port: port
 });
-
+// Chat rooms
 var rooms = {
     roomOne: {name: 'one', users: [], history: []},
     roomTwo: {name: 'two', users: [], history: []},
@@ -17,17 +17,12 @@ var rooms = {
 // Callback for every conneciton event on ws server
 // Access client connection through socket object
 ws.on('connection', (socket) => {
-    // User is now in the lobby
+    // User is now in the lobby, send available rooms
     console.log('Client connection established');
     let roomInfoResponse = JSON.stringify(Object.keys(rooms));
     socket.send(roomInfoResponse);
 
-    // Send old messages to newly connected client
-    // messages.forEach((msg) => {
-    //     socket.send(msg);
-    // });
-
-    // Create echo server: repeat any msg sent to websocket server
+    // Handle received message from socket
     socket.on('message', (data) => {
         // Get room for received message
         let jsonMessage = JSON.parse(data);
@@ -35,28 +30,24 @@ ws.on('connection', (socket) => {
 
         // Process initial admin message as user registration
         if (jsonMessage.admin) {
+            // Add user to chosen room
             let user = {userName: jsonMessage.user, socket: socket};
+            room.users.push(user);
+            // Send room chat history to user
             room.history.forEach((msg) => {
                 socket.send(JSON.stringify(msg));
             });
-
-            room.users.push(user);
         } else {
-            // Send new message form client to every client connected to socket
+            // Update room history
             room.history.push(jsonMessage);
+            // Send message to each socket in users room
             var sockets = [];
             room.users.forEach((user) => {
                 sockets.push(user.socket);
             });
             sockets.forEach((clientSocket) => {
-                clientSocket.send(data)
+                clientSocket.send(data);
             });
-            // ws.clients.forEach((clientSocket) => {
-            //     clientSocket.send(data)
-            // });
         }
-
-        // Add messages to history array
-        //messages.push(data);
     });
 });
