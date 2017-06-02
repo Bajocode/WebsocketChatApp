@@ -8,9 +8,9 @@ var ws = new WebSocketServer({
 });
 // Chat rooms
 var rooms = {
-    roomOne: {name: 'one', users: [], history: []},
-    roomTwo: {name: 'two', users: [], history: []},
-    roomThree: {name: 'three', users: [], history: []},
+    1: {users: [], history: []},
+    2: {users: [], history: []},
+    3: {users: [], history: []},
 };
 
 
@@ -18,13 +18,12 @@ var rooms = {
 // Access client connection through socket object
 ws.on('connection', (socket) => {
     // User is now in the lobby, send available rooms
-    console.log('Client connection established');
     let roomInfoResponse = JSON.stringify(Object.keys(rooms));
     socket.send(roomInfoResponse);
 
     // Handle received message from socket
     socket.on('message', (data) => {
-        // Get room for received message
+        // Get attached room for received message
         let jsonMessage = JSON.parse(data);
         let room = rooms[jsonMessage.room];
 
@@ -33,19 +32,20 @@ ws.on('connection', (socket) => {
             // Add user to chosen room
             let user = {userName: jsonMessage.user, socket: socket};
             room.users.push(user);
-            // Send room chat history to user
+            console.log('Server submits connection: ' + jsonMessage.userName + ' added to room ' + jsonMessage.room);
+            // Send room chat history to newly connected user
             room.history.forEach((msg) => {
                 socket.send(JSON.stringify(msg));
             });
         } else {
-            // Update room history
+            // Normal message, update room history
             room.history.push(jsonMessage);
-            // Send message to each socket in users room
-            var sockets = [];
+            // Broadcast message to each socket in users room
+            var roomSockets = [];
             room.users.forEach((user) => {
-                sockets.push(user.socket);
+                roomSockets.push(user.socket);
             });
-            sockets.forEach((clientSocket) => {
+            roomSockets.forEach((clientSocket) => {
                 clientSocket.send(data);
             });
         }

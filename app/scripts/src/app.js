@@ -11,17 +11,21 @@
 */
 import socket from './ws-client';
 import { UserStore } from './storage';
-import { ChatForm, ChatList, promptForUsername, promptForChatRoom } from './dom'; // {named import}
+import { ChatForm, ChatList, ChatBar, promptForUsername, promptForChatRoom } from './dom'; // {named import}
 
 const FORM_SELECTOR = '[data-chat="chat-form"]';
 const INPUT_SELECTOR = '[data-chat="message-input"]';
 const LIST_SELECTOR = '[data-chat="message-list"]';
+const ROOMSLIST_LINK_SELECTOR = '[data-chat-role="trigger"]';
 
 // Check if username in session storage of browser
 let userStore = new UserStore('x-chatApp/u');
 let username = userStore.get();
 if (!username) {
     username = promptForUsername();
+    if (username == "") {
+        username = 'NoNameBoy';
+    }
     userStore.set(username);
 }
 
@@ -36,6 +40,7 @@ class ChatApp {
         // Properties
         this.chatForm = new ChatForm(FORM_SELECTOR, INPUT_SELECTOR);
         this.chatList = new ChatList(LIST_SELECTOR, username)
+        this.chatBar = new ChatBar(ROOMSLIST_LINK_SELECTOR);
 
         socket.init('ws://localhost:3001');
         // Open socket connection to server
@@ -46,6 +51,17 @@ class ChatApp {
                 socket.sendMessage(message.serialize());
             });
             this.chatList.init(); // Generate readable timestamp
+
+            // Chatbar
+            this.chatBar.init((room) => {
+                // Clear list
+                this.chatList.$list.empty();
+                // Init new room and trigger msg history load at server
+                chosenRoom = room;
+                let message = new ChatMessage({ message: 'initUserRoom', admin: true });
+                socket.sendMessage(message.serialize());
+            });
+
         });
         // Forwarded message
         socket.registerMessageHandler((data) => {
@@ -62,7 +78,8 @@ class ChatApp {
 }
 // Get selected room from DOM and send response to server
 function configureRoom(data) {
-    chosenRoom = promptForChatRoom(data);
+    // Prompt user with available rooms
+    chosenRoom = promptForChatRoom(data) || '1';
     let message = new ChatMessage({ message: 'initUserRoom', admin: true });
     socket.sendMessage(message.serialize());
 }

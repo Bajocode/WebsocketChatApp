@@ -51,6 +51,23 @@ export class ChatForm {
     }
 }
 
+// Events related to the navbar
+export class ChatBar {
+    constructor(roomsLinkSelector) {
+        let items = document.querySelectorAll(roomsLinkSelector);
+        this.$roomItems = [].slice.call(items);
+    }
+    // Listen to dropwdown click events
+    init(clickCallback) {
+        this.$roomItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                let room = item.getAttribute('data-chat-room');
+                clickCallback(room);
+            });
+        });
+    }
+}
+
 // Create DOM elements for each message
 export class ChatList {
     constructor(listSelector, userName) {

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/stylesheets/styles.css">
 </head>
 
-
 <!-- BODY -->
 
 <body class="container chat-wrapper">
@@ -18,54 +17,37 @@
         <h1>Chat App</h1>
     </header>
 
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
 
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-         <span class = "sr-only">Toggle navigation</span>
-         <span class = "icon-bar"></span>
-         <span class = "icon-bar"></span>
-         <span class = "icon-bar"></span>
-      </button>
-
-            <a class="navbar-brand" href="#">TutorialsPoint</a>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Change Room<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-chat-role="trigger" data-chat-room="1">Room One</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" data-chat-role="trigger" data-chat-room="2">Room Two</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" data-chat-role="trigger" data-chat-room="3">Room Three</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-
-        <div class="collapse navbar-collapse" id="example-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">iOS</a></li>
-                <li><a href="#">SVN</a></li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               Java
-               <b class = "caret"></b>
-            </a>
-
-                    <ul class="dropdown-menu">
-                        <li><a href="#">jmeter</a></li>
-                        <li><a href="#">EJB</a></li>
-                        <li><a href="#">Jasper Report</a></li>
-
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-
-                        <li class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-
-                </li>
-
-            </ul>
-        </div>
-
+        <!-- /.container-fluid -->
     </nav>
 
+    <!-- Chat messages list  -->
     <div class="panel panel-default chat-messages">
         <ul class="panel-body chat-message-list" data-chat="message-list"></ul>
     </div>
 
+    <!-- Input field -->
     <section class="chat-input">
         <form data-chat="chat-form" class="cb-container">
             <div class="input-group">
@@ -77,6 +59,8 @@
             </div>
         </form>
     </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js" charset="utf-8"></script>
     <script src="/scripts/dist/main.js"></script>
 </body>
 
