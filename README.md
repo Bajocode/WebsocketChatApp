@@ -13,6 +13,5 @@ A chat app experiment consisting of a Node.js server and a JavaScript app runnin
 6. Each new browser tab represents a new user, connecting to the same socket stream at `ws port 3001` (same chat room)
 
 ###### ToDo
-* Add private chat rooms with multiple socket streams
 * Add better styling, throw away bootstrap
 * Add cool chat features found in popular apps, such as, Slack
