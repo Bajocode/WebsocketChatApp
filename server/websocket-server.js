@@ -26,13 +26,22 @@ ws.on('connection', (socket) => {
         // Get attached room for received message
         let jsonMessage = JSON.parse(data);
         let room = rooms[jsonMessage.room];
+        console.log('Server received client connection');
 
         // Process initial admin message as user registration
         if (jsonMessage.admin) {
-            // Add user to chosen room
-            let user = {userName: jsonMessage.user, socket: socket};
-            room.users.push(user);
-            console.log('Server submits connection: ' + jsonMessage.userName + ' added to room ' + jsonMessage.room);
+            // Add user to chosen room if not already there
+            let newUser = {userName: jsonMessage.user, socket: socket};
+            // Array of registered userNames in room
+            var usersInRoom = [];
+            room.users.forEach((usr) => {
+                usersInRoom.push(usr.userName);
+            });
+            // Check if new user's username already in room
+            if (!usersInRoom.includes(newUser.userName)) {
+                room.users.push(newUser);
+                console.log(newUser.userName + ' added to room ' + jsonMessage.room);
+            }
             // Send room chat history to newly connected user
             room.history.forEach((msg) => {
                 socket.send(JSON.stringify(msg));

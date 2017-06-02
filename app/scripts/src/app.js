@@ -55,10 +55,10 @@ class ChatApp {
             // Chatbar
             this.chatBar.init((room) => {
                 // Clear list
-                this.chatList.$list.empty();
+                this.chatList.clearList();
                 // Init new room and trigger msg history load at server
                 chosenRoom = room;
-                let message = new ChatMessage({ message: 'initUserRoom', admin: true });
+                let message = new ChatMessage({ message: 'initRoom', admin: true });
                 socket.sendMessage(message.serialize());
             });
 
@@ -79,7 +79,7 @@ class ChatApp {
 // Get selected room from DOM and send response to server
 function configureRoom(data) {
     // Prompt user with available rooms
-    chosenRoom = promptForChatRoom(data) || '1';
+    chosenRoom = '1';
     let message = new ChatMessage({ message: 'initUserRoom', admin: true });
     socket.sendMessage(message.serialize());
 }
