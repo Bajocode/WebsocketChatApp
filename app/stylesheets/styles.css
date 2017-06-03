@@ -43,7 +43,6 @@ ul, ul.panel-body {
 .message-row img {
     padding-right: 1em;
     /* flex: auto; */
-    border-radius: 5px;
 }
 
 .message-row p {

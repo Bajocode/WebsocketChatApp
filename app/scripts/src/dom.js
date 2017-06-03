@@ -18,7 +18,7 @@ function createGravatarURL(username) {
 
 // DOM interacts with UI, prompt user for username
 export function promptForUsername() {
-    let username = prompt('Enter your username');
+    let username = prompt('Enter your username (Gravatar email)');
     return username.toLowerCase();
 }
 
