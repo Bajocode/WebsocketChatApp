@@ -55,6 +55,10 @@ export class ChatBar {
     init(clickCallback) {
         this.$roomItems.forEach((item) => {
             item.addEventListener('click', () => {
+                // Update visible dropdown text
+                let dropDown = document.querySelector('[data-chat-role="target"]');
+                dropDown.textContent = item.textContent;
+                // Get room content and pass to callback for App -> Server
                 let room = item.getAttribute('data-chat-room');
                 clickCallback(room);
             });
